@@ -11,10 +11,13 @@ RUN apk update && \
 WORKDIR /app
 
 # Copy package.json and yarn.lock files to the working directory
-COPY package*.json yarn.lock ./
+COPY package*.json ./
+
+# Check if yarn.lock exists and copy it
+COPY yarn.lock ./
 
 # Install dependencies
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile || yarn install
 
 # Copy the rest of the application code
 COPY . .
