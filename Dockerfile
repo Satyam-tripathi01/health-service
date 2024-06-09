@@ -7,6 +7,10 @@ RUN apk update && \
     npm install -g typescript && \
     pip3 install --upgrade awscli --break-system-packages
 
+ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+
 # Set the working directory
 WORKDIR /app
 
@@ -26,4 +30,4 @@ COPY . .
 EXPOSE 3000
 
 # Start the application
-CMD ["yarn", "start"]
+CMD ["/bin/sh", "-c", "yarn start"]
